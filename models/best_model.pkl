@@ -1,0 +1,25 @@
+import mlflow
+import mlflow.sklearn
+import joblib
+
+model = joblib.load(
+    "models/best_model.pkl"
+)
+
+mlflow.set_experiment(
+    "Demand Forecasting"
+)
+
+with mlflow.start_run():
+
+    mlflow.log_param(
+        "model_type",
+        "XGBoost"
+    )
+
+    mlflow.sklearn.log_model(
+        model,
+        "model"
+    )
+
+print("MLflow tracking completed.")
